@@ -1,0 +1,18 @@
+{
+  "name": "nodejs-share-youtube-video",
+  "version": "1.0.0",
+  "author": "SevenNguyen <mr.phuocvan@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend:dev": "nodemon ./src/backend/server.js",
+    "backend:start": "node ./src/backend/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0",
+    "morgan": "^1.10.0"
+  }
+}

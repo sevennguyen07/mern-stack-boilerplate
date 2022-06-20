@@ -3,6 +3,10 @@ class BaseService {
         this.model = model
     }
 
+    count(query) {
+        return this.model.countDocuments(query)
+    }
+
     create (body) {
         return this.model.create(body)
     }
@@ -20,7 +24,7 @@ class BaseService {
             .exec()
     }
 
-    find ( query, projection = { __v: 0 }, sort = { id: 1 }, options = { lean: true } ) {
+    find ( query, projection = { __v: 0 }, sort = { _id: 1 }, options = { lean: true } ) {
         return this.model
             .find( query, projection, options )
             .sort( sort )

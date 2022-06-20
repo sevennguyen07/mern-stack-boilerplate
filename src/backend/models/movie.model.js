@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 const movieSchema = mongoose.Schema({
     title: {
         type: 'string',
-        maxLength: 50
     },
     description: {
         type: 'string'

@@ -2,6 +2,7 @@ import { assert, expect } from 'chai'
 import sinon from 'sinon'
 import userService from '../services/user.service.js'
 import userModel from '../models/user.model.js'
+import { expectThrowsAsync } from './helpers.js'
 
 const userMock = {
     _id: '62b02beb2fe08e246ae2fecc',
@@ -10,28 +11,12 @@ const userMock = {
     hash_password: '$2b$10$Uf4/ALNzwk704vXD6F8W/OL./cUYx3feSY.OM6WfmVbYlJeI4HGpi'
 }
 
-const expectThrowsAsync = async (action, errorMessage) => {
-    let error = null
-    try {
-      await action()
-    }
-    catch (err) {
-      error = err
-    }
-
-    expect(error).to.be.an('Error')
-
-    if (errorMessage) {
-      expect(error.message).to.equal(errorMessage)
-    }
-}
-
 describe('User service', () => {
     afterEach(() => {
         sinon.restore()
     })
 
-    it('Should exposes the register and login function' , () => {
+    it('Should exposes all needed functions' , () => {
         assert.isFunction(userService.register)
         assert.isFunction(userService.login)
     }),

@@ -1,0 +1,53 @@
+import _ from 'lodash'
+import getVideoId from 'get-video-id'
+import * as yt from 'youtube-info-streams'
+import MovieModel from '../models/movie.model.js'
+import BaseService from './base.service.js'
+
+class MovieService extends BaseService {
+    constructor() {
+		super()
+		this.model = MovieModel
+	}
+
+    async getMovieInfoUrl(url){
+        const { id } = getVideoId(url)
+        const info = await yt.info(id)
+        
+        return info
+    }
+
+	async shareMovie({ user, url }){
+        const info = await this.getMovieInfoUrl(url)
+
+        return this.create({
+            title: _.get(info, 'videoDetails.title', ''),
+            description: _.get(info, 'videoDetails.shortDescription', ''),
+            shared_by: user._id,
+            url: url
+        })
+    }
+
+    async listMovies({ page = 1, limit = 20 }){
+        const validPage = page ? parseInt(page, 10) : 1
+        const validLimit = limit ? parseInt(limit, 10) : 20
+        const skip = (validPage - 1) * validLimit
+
+        const [total, videos] = await Promise.all([
+            this.count({}),
+            this.find({}, { __v: 0 }, { _id: -1 }, { lean: true, skip: skip, limit: validLimit})
+        ])
+
+        const totalPage = Math.ceil(total/validLimit)
+        return {
+            total: total,
+            page: validPage,
+            limit: validLimit,
+            total_page: totalPage,
+            videos: videos
+        }
+
+    }
+}
+
+export default new MovieService()

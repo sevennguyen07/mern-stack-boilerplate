@@ -5,15 +5,23 @@
   "author": "SevenNguyen <mr.phuocvan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/* --reporter spec",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "config": "^3.3.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "joi": "^17.6.0",
     "mongoose": "^6.4.0",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0"
   }
 }

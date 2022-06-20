@@ -1,10 +1,14 @@
-import express, { json } from "express"
-import cors from "cors"
-import dotenv from "dotenv"
-import morgan from "morgan"
-import routes from "./routes.js"
+import 'dotenv/config'
+import express, { json } from 'express'
+import cors from 'cors'
+import morgan from 'morgan'
+import routes from './routes.js'
+import mongoConnector from './connections/mongodb.js'
 
-const port = 3001
+//connect mongodb
+mongoConnector(process.env.MONGO_URI || 'mongodb://localhost:27017/ntf5-db')
+
+const port = process.env.PORT || 3001
 const app = express()
 app.use(cors())
 app.use(json())

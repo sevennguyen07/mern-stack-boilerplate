@@ -5,7 +5,7 @@
   "author": "SevenNguyen <mr.phuocvan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "mocha test/* --reporter spec",
+    "test": "mocha --timeout 10000 test/* --reporter spec",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
@@ -16,12 +16,16 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongoose": "^6.4.0",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "sinon": "^14.0.0",
+    "sinon-mongoose": "^2.3.0"
   }
 }

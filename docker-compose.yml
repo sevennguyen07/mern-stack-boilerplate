@@ -1,0 +1,55 @@
+version: "3.3"
+services:
+    ntf5_backend:
+        container_name: ntf5_backend
+        image: ntf5/ntf5_backend
+        restart: always
+        build:
+            context: ./src/backend
+            dockerfile: Dockerfile
+        # env_file:
+        #     - ./.env
+        depends_on:
+            - ntf5_redis
+            - ntf5_mongodb
+
+    ntf5_frontend:
+        container_name: ntf5_frontend
+        image: ntf5/ntf5_frontend
+        restart: on-failure
+        build:
+            context: ./src/frontend
+            dockerfile: Dockerfile
+    
+    ntf5_nginx:
+        container_name: ntf5_nginx
+        restart: always
+        build:
+            dockerfile: Dockerfile
+            context: ./src/nginx
+        ports:
+            - "8080:80"
+        depends_on:
+            - ntf5_backend
+            # - ntf5_frontend
+
+    ntf5_redis:
+        image: redis
+        container_name: ntf5_redis
+        restart: always
+        ports:
+            - 6379:6379
+    
+    ntf5_mongodb:
+        container_name: ntf5_mongodb
+        image:  mongo:latest
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
+        ports:
+          - 27017:27017
+        volumes:
+          - db_data:/data/db
+
+volumes:
+    db_data:

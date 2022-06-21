@@ -10,13 +10,13 @@ const Movies = () => {
         <>
             {user._id ? (
                 <>
-                <AddMovie/>
-                <ListMovies/>
+                    <AddMovie/>
+                    <ListMovies/>
                 </>
             ):
             (
                 <>
-                <ListMovies/>
+                    <ListMovies/>
                 </>
             )
             }

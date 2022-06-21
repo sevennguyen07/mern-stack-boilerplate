@@ -1,9 +1,10 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from "../../store/actions/movieActions";
-
+import { Pagination } from "@material-ui/lab";
+import _ from 'lodash'
 import Movie from './Movie'
 
 const useStyles = makeStyles({
@@ -18,17 +19,23 @@ const useStyles = makeStyles({
   
 const ListMovies = () => {
     const classes = useStyles();
-    const movies = useSelector((state) => state.movies);
+    const movieData = useSelector((state) => state.movieData);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-      dispatch(getMovies());
+      dispatch(getMovies(movieData.page || 1));
     }, []);
+
+    const handleChange = (e, p) => {
+      e.preventDefault();
+      dispatch(getMovies(p));
+    };
 
     return ( 
         <div className={classes.todosStyle}>
-            {movies &&
-              movies.map((movie) => {
+            {movieData &&
+              _.get(movieData, 'movies', []).map((movie) => {
                 return (
                   <Movie
                     movie={movie}
@@ -36,6 +43,14 @@ const ListMovies = () => {
                   />
                 );
             })}
+            <Pagination
+              count={_.get(movieData, 'total_page', 0)}
+              size="medium"
+              page={_.get(movieData, 'page', 1)}
+              variant="outlined"
+              shape="rounded"
+              onChange={handleChange}
+            />
         </div>
      );
 }

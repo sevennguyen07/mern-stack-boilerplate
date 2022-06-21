@@ -3,7 +3,7 @@ import movieReducer from './movieReducer';
 import authReducer from './authReducer';
 
 const rootReducer = combineReducers({ 
-    movies: movieReducer,
+    movieData: movieReducer,
     auth: authReducer
 })
 

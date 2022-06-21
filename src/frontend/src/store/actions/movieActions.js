@@ -3,14 +3,14 @@ import axios from "axios";
 import { url, setHeaders } from "../../api";
 import { toast } from "react-toastify";
 
-export const getMovies = () => {
+export const getMovies = (page) => {
   return (dispatch) => {
     axios
-      .get(`${url}/movie/list`, setHeaders())
+      .get(`${url}/movie/list?page=${page}&limit=5`, setHeaders())
       .then((response) => {
         dispatch({
           type: "GET_MOVIES",
-          movies: response.data.data.movies,
+          data: response.data.data,
         });
       })
       .catch((error) => {

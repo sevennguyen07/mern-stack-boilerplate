@@ -13,6 +13,9 @@ const movieSchema = mongoose.Schema({
     url: {
         type: 'string'
     },
+    iframe_url: {
+        type: 'string'
+    },
     shared_by: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

@@ -46,7 +46,7 @@ describe('Movie service', () => {
             select: function () {
                 return this
             },
-            exec: function () {
+            populate: function () {
                 return mockMovies
             }
         })

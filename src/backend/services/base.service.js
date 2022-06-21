@@ -25,7 +25,7 @@ class BaseService {
     }
 
     find ( query, projection = { __v: 0 }, sort = { _id: 1 }, options = { lean: true } ) {
-        return this.model
+        return this
             .find( query, projection, options )
             .sort( sort )
             .select( { __v: 0 } )

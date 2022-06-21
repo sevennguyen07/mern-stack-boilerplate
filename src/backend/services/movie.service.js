@@ -27,7 +27,8 @@ class MovieService extends BaseService {
             title: _.get(info, 'videoDetails.title', ''),
             description: _.get(info, 'videoDetails.shortDescription', ''),
             shared_by: user._id,
-            url: url
+            url: url,
+            iframe_url: _.get(info, 'videoDetails.embed.iframeUrl')
         })
     }
 
@@ -38,7 +39,10 @@ class MovieService extends BaseService {
 
         const [total, movies] = await Promise.all([
             this.count({}),
-            this.find({}, { __v: 0 }, { _id: -1 }, { lean: true, skip: skip, limit: validLimit})
+            this.model
+                .find({}, { __v: 0 }, { lean: true, skip: skip, limit: validLimit})
+                .sort({_id: -1})
+                .populate('shared_by', '_id email')
         ])
 
         const totalPage = Math.ceil(total/validLimit)

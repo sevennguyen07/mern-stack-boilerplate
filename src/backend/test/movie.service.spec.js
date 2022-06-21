@@ -57,7 +57,7 @@ describe('Movie service', () => {
         expect(response.page).to.equal(1)
         expect(response.limit).to.equal(2)
         expect(response.total_page).to.equal(3)
-        expect(response.videos).to.eql(mockMovies)
+        expect(response.movies).to.eql(mockMovies)
     })
 
     it('Should return correct response when the shareMovie function is called', async () => {

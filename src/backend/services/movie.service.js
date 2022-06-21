@@ -11,10 +11,13 @@ class MovieService extends BaseService {
 	}
 
     async getMovieInfoUrl(url){
-        const { id } = getVideoId(url)
-        const info = await yt.info(id)
-        
-        return info
+        try {
+            const { id } = getVideoId(url)
+            const info = await yt.info(id)
+            return info
+        } catch (error) {
+            throw new Error('Cannot get movie info. Please check your movie url and try again.')
+        }
     }
 
 	async shareMovie({ user, url }){
@@ -33,7 +36,7 @@ class MovieService extends BaseService {
         const validLimit = limit ? parseInt(limit, 10) : 20
         const skip = (validPage - 1) * validLimit
 
-        const [total, videos] = await Promise.all([
+        const [total, movies] = await Promise.all([
             this.count({}),
             this.find({}, { __v: 0 }, { _id: -1 }, { lean: true, skip: skip, limit: validLimit})
         ])
@@ -44,7 +47,7 @@ class MovieService extends BaseService {
             page: validPage,
             limit: validLimit,
             total_page: totalPage,
-            videos: videos
+            movies: movies
         }
 
     }

@@ -44,6 +44,7 @@ describe('User service', () => {
 
         expect(newUser.email).to.equal(userMock.email)
         expect(newUser._id).to.equal(userMock._id)
+        expect(newUser.token).to.be.a('string')
     })
 
     it('Should register failed because same email are already existed', async () => {

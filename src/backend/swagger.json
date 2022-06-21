@@ -1,0 +1,167 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "ntf5 assignment",
+      "description": "",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "schemes": [],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "securityDefinitions":{
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Bearer {jwt}",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "paths": {
+      "/auth/login": {
+        "post": {
+            "tags": [
+              "auth"
+            ],
+            "parameters": [
+              {
+                "name": "User",
+                "in": "body",
+                "description": "login to the application",
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            ], 
+            "responses": { 
+              "200": { "description": "you have successfully logged in." },
+              "500": {
+                "description": "An error has occurred"
+              }
+            }
+          }
+      },
+      "/auth/register": {
+        "post": {
+            "tags": [
+              "auth"
+            ],
+            "parameters": [
+              {
+                "name": "User",
+                "in": "body",
+                "description": "register to the application",
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            ], 
+            "responses": { 
+              "200": { "description": "you have successfully registerd." },
+              "500": {
+                "description": "An error has occurred"
+              }
+            
+            }
+          }
+      },
+      "/movie/list": {
+        "get": {
+            "tags": [
+              "movie"
+            ],
+            "parameters": [
+              {
+                "name": "page",
+                "in": "query",
+                "type": "number"
+              },
+              {
+                "name": "limit",
+                "in": "query",
+                "type": "number"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Retrive list shared movies"
+              },
+              "500": {
+                "description": "An error has occurred"
+              }
+            }
+          }
+      },
+      "/movie/share": {
+        "post": {
+            "security": [
+              {"Bearer": []}
+            ],
+            "tags": [
+              "movie"
+            ],
+            "parameters": [
+              {
+                "name": "url",
+                "in": "body",
+                "schema": {
+                  "properties" : {
+                    "url": {
+                      "type": "string",
+                      "description": "url of movie",
+                      "required": true
+                    }
+                  }
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "You have successfully shared a movie"
+              },
+              "500": {
+                "description": "An error has occurred"
+              }
+            }
+          }
+      }
+    },
+    "definitions": {
+      "User": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "email of user",
+            "required": true
+          },
+          "password": {
+            "type": "string",
+            "description": "password of user",
+            "required": true
+          }
+        }
+      },
+      "Movie": {
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "title of movie",
+              "required": true
+            },
+            "description": {
+              "type": "string",
+              "description": "description of movie",
+              "required": true
+            },
+            "url": {
+              "type": "string",
+              "description": "url of movie",
+              "required": true
+            }
+          }
+      }
+    }
+  }

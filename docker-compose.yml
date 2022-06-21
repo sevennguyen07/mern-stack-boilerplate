@@ -7,8 +7,8 @@ services:
         build:
             context: ./src/backend
             dockerfile: Dockerfile
-        # env_file:
-        #     - ./.env
+        env_file:
+            - ./src/backend/.env
         depends_on:
             - ntf5_redis
             - ntf5_mongodb
@@ -31,7 +31,7 @@ services:
             - "8080:80"
         depends_on:
             - ntf5_backend
-            # - ntf5_frontend
+            - ntf5_frontend
 
     ntf5_redis:
         image: redis

@@ -2,7 +2,15 @@ import jwt from 'jsonwebtoken'
 
 const verifyToken = (req, res, next) => {
 	const authHeader = req.headers.authorization
-	const token = authHeader && authHeader.split(' ')[1]
+	let token = null
+
+	if( authHeader ){
+		if( authHeader.split(' ')[0] === 'Bearer'){
+			token = authHeader.split(' ')[1]
+		} else {
+			token = authHeader
+		}
+	}
 
 	if (token == null) return res.sendStatus(401)
 

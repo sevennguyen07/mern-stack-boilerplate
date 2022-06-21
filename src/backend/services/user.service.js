@@ -25,7 +25,13 @@ class UserService extends BaseService {
 			password: hashPassword
 		})
 		
-		return _.pick(newUser, ['_id', 'email'])
+		const payload = { _id: newUser._id, email: newUser.email }
+		const token = jwt.sign(payload, process.env.TOKEN_SECRET || 'test', { expiresIn: process.env.TOKEN_EXPRIE || '1d' })
+
+		return {
+			...payload,
+			token
+		}
 	}
 
 	async login({ email, password }) {

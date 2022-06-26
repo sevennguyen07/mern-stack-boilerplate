@@ -1,3 +1,14 @@
+# **Description**
+A full MERN stack boilerplate for web apps that inclues authentication system. An logged in user can share your favorite youtube video with others.
+
+# **Tech stack**
+- Node.js - Express Framework
+- React.js
+- MongoDB
+- Nginx
+- Docker
+- Tesing with mocha, chai, sinon
+
 # **To run application**
     - create .env with content from env.example inside src/backend folder
     - docker-compose up
